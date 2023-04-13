@@ -1,0 +1,243 @@
+:root {
+    /* 自定义属性，这几个属性等会是通过js随机生成，通过var函数可对其调用 */
+    /* 上外边距 */
+    --margin-top: 0;
+    /* 左外边距 */
+    --margin-left: 0;
+    /* 动画时长 */
+    --animation-duration: 0s;
+    /* 动画延迟时间 */
+    --animation-delay: 0s;
+}
+body {
+    /*初始化 取消内外边距*/
+    margin: 0;
+    padding: 0;
+    /*100%窗口高度*/
+    height: 100vh;
+    /*弹性布局，水平垂直居中*/
+    /*display: flex;*/
+    justify-content: center;
+    align-items: center;
+    /*渐变背景*/
+    background: linear-gradient(125deg, #e00ac0, #d4a60f, #d70c0c, #147cb8, #8e44ad);
+    /*指定背景图像大小*/
+    background-size: 1000%;
+    /*执行动画 动画名 时长 线性的 无限次播放*/
+    animation: bgAnimation 15s linear infinite;
+    /* 溢出隐藏 */
+    overflow: hidden;
+    /* 设置视距 */
+    perspective:-1000px;
+}
+
+
+
+.container ul {
+    text-align: center;
+    
+
+}
+.container li {
+    width: 256px;
+    height: 256px;
+    display: inline-block;
+    margin:5px;
+    text-align: center;
+    position:relative;
+}
+.container li .img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    position: relative;
+    /*z-index: 10;*/
+    /*设置transform的过渡*/
+    transition: transform 0.35s;
+}
+/*文本层*/
+.container li .text {
+    font-size: 20px;
+    width: 100%;
+    height: 100%;
+    background-color: #175fa7;
+    color:#b7ccde;
+    position:absolute;
+    left: 0;
+    top: 0;
+    padding: 1px;
+    /*默认缩小0.7倍，不透明度0*/
+    transform:scale(0.7);
+    opacity: 0;
+    width: 250px;
+    height: 265px;
+    margin: 8px;
+    padding-top: 5px;
+    cursor: pointer;
+    /*border: 1px solid rgb(200, 255, 0);点击边框*/
+    border-radius: 50px 50px 50px 50px;
+    /*设置过渡*/
+    transition: 0.35s;
+}
+.container li h3 {
+    color:#fff;
+}
+/*了解更多*/
+.container li a {
+    position:absolute;
+    bottom:20px;
+    right: 20px;
+    background-color: #2b80ae;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 2px;
+}
+/*.container li:hover {
+    transform: scale(0.45);
+    border-radius: 50% ;
+    border:15px solid rgba(255,255,255,0.5);
+}*//*缩小图片*/
+/*悬停时文本层变换*/
+.container li:hover .text {
+    transform: scale(1);
+    opacity: 1;
+}
+img {
+    /*定义自定义属性，可通过var函数进行调用*/
+    /*图片尺寸*/
+    --s: 256px;
+    /*边框大小*/
+    --b: 5px;
+    /*边框颜色*/
+    --c: #a3238e;
+    /*背景颜色*/
+    --cb: #c87be4;
+    /*缩放值*/
+    --sc:1 ;
+
+    width: var(--s);
+    height: var(--s);
+    margin: 5px;
+    padding-top: 25px;
+    cursor: pointer;
+    /*border: 1px solid rgb(145, 255, 0);悬停卡片边框*/
+    border-radius: 50px 50px 50px 50px;
+    /*设置background-position,background-repeat,background-clip*/
+    --g: 50%/calc(100%/var(--sc)) 100% no-repeat content-box;
+    /*计算轮廓与边框边缘的距离*/
+    --o: calc((1 / var(--sc)- 1)*var(--s)/2 - var(--b));
+    /*设置轮廓*/
+    outline: var(--b) solid var(--c);
+    /*轮廓与边框边缘的距离*/
+    outline-offset: var(--o);
+    /*图片背景*/
+    background: radial-gradient(circle closest-side, var(--cb) calc(99% - var(--b)),
+            var(--c) calc(100% -var(--b)) 99%, transparent) var(--g);
+    /*遮罩*/
+    -webkit-mask: linear-gradient(#000 0 0) no-repeat 50% calc(1px-var(--o))/calc(100% / -var(--sc)- 2 *var(--b)- 2px) 50%, 
+                  radial-gradient(circle closest-side,#000 99%,transparent) var(--g);
+    /*默认缩放值*/
+    transform: scale(--sc);
+    transition: 0.5s;
+}
+/*悬停时图片放大*/
+img:hover {
+    --sc:1.8;
+}
+/*为第二第三张图片设置背景颜色，边框颜色*/
+img:nth-child(2) {
+    --c:#ffacc6;
+    --cb:#ff75a1;
+}
+img:nth-child(3) {
+    --c:#4bd2ff;
+    --cb:#03aee6;
+}
+.text {
+    color: #fff;
+    font-size: 30px;
+    /*字间距*/
+    letter-spacing: 15px;
+}
+
+/*定义渐变背景动画*/
+@keyframes bgAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+/* T恤本体 */
+.message{
+    position: relative;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.message img{
+    height: 100%;
+}
+/* 覆盖层 */
+.message-overlay{
+    /* 绝对定位 */
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+.message-overlay img{
+    height: 100%;
+    /* 设置混合模式为正片叠底 */
+    mix-blend-mode: multiply;
+}
+/* 覆盖层图案 */
+.message-overlay-pattern{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* 设置元素上遮罩层的图像 */
+    mask-image: url(images/t_shirt_mask.png);
+    -webkit-mask-image: url(images/t_shirt_mask.png);
+    /* 掩码图像的大小 保持图像纵横比 */
+    mask-size: contain;
+    -webkit-mask-size: contain;
+}
+/* 图案选项 */
+.options{
+    position: absolute;
+    bottom: 0;
+    right: -100px;
+}
+.option{
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    border: 3px solid #fff;
+    background-color: #e2e2e2;
+    overflow: hidden;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.option img{
+    width: 100%;
+    height: 100%;
+}
+/* 选中态 */
+.option.active{
+    border-color: #ff6b81;
+}
+/* 鼠标移入 */
+.option:hover{
+    border-color: #ff6b81;
+}
